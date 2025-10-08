@@ -1,54 +1,56 @@
-# File: /README.md
+# Event Ticketing System
 
-# Trade Fair Ticketing System
-
-A full-stack Next.js demo application for managing trade fair event tickets.
+A modern, full-stack Next.js application for managing event tickets with attendee tracking, QR code generation, and ticket verification.
 
 ## Features
 
-- Browse upcoming trade fair events
-- Purchase tickets (simulated payment)
-- Generate unique QR-coded tickets
-- Verify tickets at entry gates (QR scanner + manual entry)
-- In-memory data storage (no database required)
+### 🎫 Event Management
+- Browse upcoming events across multiple categories (Conferences, Concerts, Workshops, Expos, Sports)
+- Create new events with customizable details and banner selection
+- Modern, responsive card-based event listings
+- Category filtering and search
 
-## Installation
+### 🎟️ Ticket Purchasing
+- Simple ticket purchase flow with buyer information
+- Automatic QR code generation for each ticket
+- Unique ticket codes using UUID
+- Instant ticket confirmation with printable view
 
-1. Install dependencies:
-\`\`\bash
-npm install
-\`\`\`
+### 👥 Attendee Management
+- Comprehensive attendee dashboard with real-time stats
+- Track total tickets sold, check-ins, and revenue
+- Filter attendees by check-in status
+- One-click check-in/undo functionality
+- Event-specific statistics breakdown
 
-2. Run the development server:
-\`\`\bash
-npm run dev
-\`\`\`
+### ✅ Ticket Verification
+- QR code scanner using device camera
+- Manual ticket code entry option
+- Real-time validation with visual feedback
+- Display ticket holder and event information
+- Automatic check-in status updates
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Usage
-
-1. **Browse Events**: Visit the homepage to see all available trade fair events
-2. **Buy Ticket**: Click on an event, fill in your details, and purchase a ticket
-3. **View Ticket**: After purchase, view your ticket with QR code
-4. **Verify Ticket**: Use the verify page to scan QR codes or enter ticket codes manually
+### 🎨 Modern UI/UX
+- Beautiful gradient designs and smooth animations
+- Mobile-first responsive layout
+- Intuitive navigation with sticky header
+- Card-based layouts with hover effects
+- Consistent color scheme across all pages
+- Print-friendly ticket views
 
 ## Tech Stack
 
-- Next.js 14 (App Router)
-- TypeScript
-- TailwindCSS
-- QRCode generation
-- HTML5 QR Scanner
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** TailwindCSS with custom animations
+- **QR Generation:** qrcode library
+- **QR Scanning:** html5-qrcode
+- **ID Generation:** uuid
+- **Data Storage:** In-memory (demo purposes)
 
-## Demo Features
+## Installation
 
-This is a demo application with:
-- No authentication
-- Simulated payments
-- In-memory data storage
-- Pre-seeded event data
-
-## License
-
-MIT
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
