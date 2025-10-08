@@ -6,9 +6,10 @@ import { generateQRCode } from '@/lib/utils';
 
 export async function GET(
   request: Request,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> | { code: string } }
 ) {
-  const { code } = params;
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const { code } = resolvedParams;
 
   const ticket = tickets.find(t => t.code === code);
   

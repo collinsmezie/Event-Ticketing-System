@@ -334,7 +334,7 @@ export default function VerifyPage() {
           }
           setScannerMode(false);
         },
-        (error) => {
+        () => {
           // Ignore scan errors
         }
       );
@@ -361,10 +361,11 @@ export default function VerifyPage() {
 
       const data = await response.json();
       setResult(data);
-    } catch (err) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to verify ticket. Please try again.';
       setResult({
         valid: false,
-        message: 'Failed to verify ticket. Please try again.',
+        message: errorMessage,
         ticket: null,
         event: null
       });

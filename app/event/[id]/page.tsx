@@ -290,8 +290,9 @@ export default function EventPage({ params }: { params: { id: string } }) {
 
       const data = await response.json();
       router.push(`/ticket/${data.ticket.code}`);
-    } catch (err) {
-      setError('Failed to purchase ticket. Please try again.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to purchase ticket. Please try again.';
+      setError(message);
       setPurchasing(false);
     }
   };

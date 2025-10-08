@@ -4,7 +4,6 @@
 
 // import { useState } from 'react';
 // import { useRouter } from 'next/navigation';
-// import Link from 'next/link';
 
 // export default function CreateEventPage() {
 //   const router = useRouter();
@@ -270,7 +269,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import { availableBanners } from '@/lib/data';
 
@@ -329,8 +327,8 @@ export default function CreateEventPage() {
 
       const newEvent = await response.json();
       router.push(`/event/${newEvent.id}`);
-    } catch (err: any) {
-      setError(err.message || 'Failed to create event. Please try again.');
+    } catch (err) {
+      setError((err as Error).message || 'Failed to create event. Please try again.');
       setCreating(false);
     }
   };

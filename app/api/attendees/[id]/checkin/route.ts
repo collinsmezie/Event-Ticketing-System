@@ -1,14 +1,15 @@
 // File: /app/api/attendees/[id]/checkin/route.ts (NEW)
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { attendees } from '@/lib/data';
 
 export async function POST(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
   try {
-    const attendee = attendees.find(a => a.id === params.id);
+    const attendee = attendees.find(a => a.id === resolvedParams.id);
 
     if (!attendee) {
       return NextResponse.json(

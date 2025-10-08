@@ -29,14 +29,14 @@
 
 // File: /app/api/events/route.ts (UPDATED)
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { events } from '@/lib/data';
 
 export async function GET() {
   return NextResponse.json(events);
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { name, description, location, date, price, bannerUrl } = body;

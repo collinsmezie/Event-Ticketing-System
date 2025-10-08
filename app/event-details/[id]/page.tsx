@@ -1,8 +1,6 @@
-// File: /app/event-details/[id]/page.tsx (NEW)
-
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
@@ -33,11 +31,7 @@ export default function EventDetailsPage({ params }: { params: { id: string } })
   const [closing, setClosing] = useState(false);
   const [closeSummary, setCloseSummary] = useState<CloseSummary | null>(null);
 
-  useEffect(() => {
-    fetchEventDetails();
-  }, [params.id]);
-
-  const fetchEventDetails = async () => {
+  const fetchEventDetails = useCallback(async () => {
     try {
       const response = await fetch(`/api/events/${params.id}`);
       if (response.ok) {
@@ -49,7 +43,11 @@ export default function EventDetailsPage({ params }: { params: { id: string } })
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    fetchEventDetails();
+  }, [fetchEventDetails]);
 
   const handleCloseEvent = async () => {
     setClosing(true);

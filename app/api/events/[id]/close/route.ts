@@ -5,10 +5,11 @@ import { events, attendees } from '@/lib/data';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
   try {
-    const event = events.find(e => e.id === params.id);
+    const event = events.find(e => e.id === resolvedParams.id);
     
     if (!event) {
       return NextResponse.json(
@@ -29,7 +30,7 @@ export async function POST(
     event.closedAt = new Date().toISOString();
 
     // Get final stats
-    const eventAttendees = attendees.filter(a => a.eventId === params.id);
+    const eventAttendees = attendees.filter(a => a.eventId === resolvedParams.id);
     const checkedIn = eventAttendees.filter(a => a.checkedIn).length;
 
     return NextResponse.json({

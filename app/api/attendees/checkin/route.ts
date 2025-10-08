@@ -1,9 +1,9 @@
 // File: /app/api/attendees/checkin/route.ts (NEW)
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { attendees, tickets } from '@/lib/data';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { ticketCode } = body;

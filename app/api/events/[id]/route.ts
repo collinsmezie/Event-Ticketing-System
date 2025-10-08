@@ -5,9 +5,10 @@ import { events, attendees } from '@/lib/data';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
-  const event = events.find(e => e.id === params.id);
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const event = events.find(e => e.id === resolvedParams.id);
   
   if (!event) {
     return NextResponse.json(
@@ -16,7 +17,7 @@ export async function GET(
     );
   }
 
-  const eventAttendees = attendees.filter(a => a.eventId === params.id);
+  const eventAttendees = attendees.filter(a => a.eventId === resolvedParams.id);
   const checkedIn = eventAttendees.filter(a => a.checkedIn).length;
 
   return NextResponse.json({
