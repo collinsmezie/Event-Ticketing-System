@@ -9,6 +9,8 @@ export type Event = {
   price: number;
   bannerUrl: string;
   category?: string;
+  closed?: boolean;
+  closedAt?: string;
 };
 
 export type Ticket = {
@@ -36,4 +38,13 @@ export type EventStats = {
   totalTickets: number;
   checkedIn: number;
   revenue: number;
+};
+
+export type DashboardStats = {
+  totalEvents: number;
+  totalTickets: number;
+  totalCheckedIn: number;
+  totalRevenue: number;
+  upcomingEvents: number;
+  closedEvents: number;
 };

@@ -1,4 +1,4 @@
-// File: /app/api/verify/route.ts
+// File: /app/api/verify/route.ts (UPDATED)
 
 import { NextResponse } from 'next/server';
 import { tickets, events } from '@/lib/data';
@@ -6,7 +6,7 @@ import { tickets, events } from '@/lib/data';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { code } = body;
+    const { code, skipMarkAsUsed } = body;
 
     if (!code) {
       return NextResponse.json(
@@ -36,13 +36,25 @@ export async function POST(request: Request) {
       });
     }
 
-    ticket.used = true;
-
     const event = events.find(e => e.id === ticket.eventId);
+
+    if (event?.closed) {
+      return NextResponse.json({
+        valid: false,
+        message: 'This event has been closed',
+        ticket,
+        event
+      });
+    }
+
+    // Only mark as used if not skipped (for check-in confirmation flow)
+    if (!skipMarkAsUsed) {
+      ticket.used = true;
+    }
 
     return NextResponse.json({
       valid: true,
-      message: 'Ticket verified successfully',
+      message: skipMarkAsUsed ? 'Ticket is valid' : 'Ticket verified successfully',
       ticket,
       event
     });

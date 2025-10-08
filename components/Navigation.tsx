@@ -1,4 +1,4 @@
-// File: /components/Navigation.tsx (NEW)
+// File: /components/Navigation.tsx (UPDATED)
 
 'use client';
 
@@ -10,8 +10,8 @@ export default function Navigation() {
 
   const navItems = [
     { name: 'Home', href: '/' },
+    { name: 'Dashboard', href: '/dashboard' },
     { name: 'Events', href: '/events' },
-    { name: 'Create Event', href: '/create-event' },
     { name: 'Attendees', href: '/attendees' },
     { name: 'Verify', href: '/verify' },
   ];
